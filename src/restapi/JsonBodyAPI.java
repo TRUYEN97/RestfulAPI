@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 public class JsonBodyAPI {
     private final JSONObject body;
 
-    public JsonBodyAPI builder(){
+    public static JsonBodyAPI builder(){
         return  new JsonBodyAPI();
     }
     

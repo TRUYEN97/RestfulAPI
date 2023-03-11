@@ -24,7 +24,7 @@ public class RestAPI {
     public static enum RequestMethod {
         GET, POST, HEAD, OPTIONS, PUT, DELETE, TRACE
     };
- 
+
     public void removeToken() {
         this.jwtToken = null;
     }
@@ -41,13 +41,25 @@ public class RestAPI {
         return send(RequestMethod.GET, url, null, null);
     }
 
-    public Response sendJsonAPI(RequestMethod method, String url, String body) throws IOException {
+    public Response sendPost(String url, JsonBodyAPI body) {
+        return sendJsonAPI(RequestMethod.POST, url, body);
+    }
+    
+    public Response sendPost(String url, String body) {
+        return sendJsonAPI(RequestMethod.POST, url, body);
+    }
+
+    public Response sendJsonAPI(RequestMethod method, String url, JsonBodyAPI body) {
+        return send(method, url, null, body.toJSONString());
+    }
+
+    public Response sendJsonAPI(RequestMethod method, String url, String body) {
         return send(method, url, null, body);
     }
 
-    public Response sendJsonAPI(RequestMethod method, String url, QueryParam queryParam, JsonBodyAPI jsonBodyAPI) throws IOException {
+    public Response sendJsonAPI(RequestMethod method, String url, QueryParam queryParam, JsonBodyAPI jsonBodyAPI) {
         String body = jsonBodyAPI == null ? null : jsonBodyAPI.toJSONString();
-        return  send(method, url, queryParam, body);
+        return send(method, url, queryParam, body);
     }
 
     protected Response send(RequestMethod method, String url, QueryParam parmater, String command) {
